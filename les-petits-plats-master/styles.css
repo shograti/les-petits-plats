@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0em 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+:root {
+    --primary-red: #D04F4F;
+    --grey: #E7E7E7;
+    --reddish-grey: #C7BEBE;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+}
+
+.title_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title_section h1 {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--primary-red);
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.search_section {
+    width: 100%;
+    position: relative;
+    margin-top: 2em;
+}
+
+.search_section input {
+    border: none;
+    background-color: var(--grey);
+    padding: 1em;
+    height: 69px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 18px;
+    outline: none;
+}
+
+.search_section img {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.recipes_section {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 33px;
+    margin-top: 2em;
+}
+
+.image_placeholder {
+    width: 380px;
+    height: 178px;
+    background-color: var(--reddish-grey);
+}
+
+article {
+    border-radius: 5px;
+    background-color: var(--grey);
+    padding: 1em;
+}
+
+.article_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article_head h2 {
+    font-size: 18px;
+}
+
+.time_container {
+    display: flex;
+    gap: 0.5em;
+}
+
+.time_container p {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.article_body {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin-top: 1em;
+    align-items: center;
+}
+
+
+.article_description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    font-size: 12px;
+}
+
+.ingredient_container {
+    display: flex;
+    gap: 5px;
+    font-size: 12px;
+    width: 171px;
+}
+
+.ingredient_container span {
+    font-weight: 700;
+}
