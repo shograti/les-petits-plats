@@ -84,10 +84,47 @@ header {
 
 /* Filter section */
 
+.filters {
+    position: relative;
+}
+
+.chosen_filters {
+    display: flex;
+    gap: 1em;
+    margin: 1em 0em 1em;
+    flex-wrap: wrap;
+}
+
+.filter_blue {
+    background-color: #3282F7;
+}
+
+.filter_green {
+    background-color: #68D9A4;
+}
+
+.filter_red {
+    background-color: #ED6454;
+}
+
+.filter_blue,
+.filter_green,
+.filter_red {
+    color: #FFF;
+    padding: 1em 1.5em;
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+}
+
 .filter_menus {
     display: flex;
     gap: 2em;
-    margin-top: 2em;
     align-items: flex-start;
 }
 
@@ -96,6 +133,7 @@ header {
 #ustensils-filter {
     border-radius: 5px;
     padding: 1em;
+    position: relative;
 
 }
 

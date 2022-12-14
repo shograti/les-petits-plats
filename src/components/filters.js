@@ -106,13 +106,21 @@ function generateUstensilsList() {
 function createFilterList(target, list) {
   let array = [...list];
 
-  array.forEach((item) => {
+  array.slice(0, 30).forEach((item) => {
     const itemName = document.createElement('p');
     itemName.textContent = capitalizeFirstLetter(item);
     target.appendChild(itemName);
 
     itemName.addEventListener('click', () => {
-      filters.push(itemName.textContent);
+      if (target.className === 'ingredients_filter_list') {
+        filters.push({ name: itemName.textContent, color: 'blue' });
+      }
+      if (target.className === 'devices_filter_list') {
+        filters.push({ name: itemName.textContent, color: 'green' });
+      }
+      if (target.className === 'ustensils_filter_list') {
+        filters.push({ name: itemName.textContent, color: 'red' });
+      }
 
       recipes.map((recipe) => {
         recipe.ingredients.forEach((ingredient) => {
@@ -143,8 +151,14 @@ function createFilterList(target, list) {
 function displayFilters(filters) {
   removeChildren(chosenFilters);
   filters.forEach((filter) => {
-    const chosenFilter = document.createElement('p');
-    chosenFilter.textContent = filter;
+    const chosenFilter = document.createElement('div');
+    const chosenFilterTextContainer = document.createElement('p');
+    const removeIcon = document.createElement('img');
+    removeIcon.setAttribute('src', './assets/remove.png');
+    chosenFilter.classList.add(`filter_${filter.color}`);
+    chosenFilterTextContainer.textContent = filter.name;
+    chosenFilter.appendChild(chosenFilterTextContainer);
+    chosenFilter.appendChild(removeIcon);
     chosenFilters.appendChild(chosenFilter);
   });
 }
