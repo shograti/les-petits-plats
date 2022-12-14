@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+/* Configuration and reset */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lato:wght@100;300;400;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 * {
     padding: 0;
@@ -29,6 +31,8 @@ h6 {
     --reddish-grey: #C7BEBE;
 }
 
+/* Header */
+
 header {
     width: 100%;
     display: flex;
@@ -49,6 +53,8 @@ header {
     font-size: 36px;
     font-weight: 700;
 }
+
+/* Searchbar */
 
 .search_section {
     width: 100%;
@@ -75,6 +81,88 @@ header {
     top: 50%;
     transform: translateY(-50%);
 }
+
+/* Filter section */
+
+.filter_menus {
+    display: flex;
+    gap: 2em;
+    margin-top: 2em;
+    align-items: flex-start;
+}
+
+#ingredients-filter,
+#devices-filter,
+#ustensils-filter {
+    border-radius: 5px;
+    padding: 1em;
+
+}
+
+#ingredients-filter {
+    background-color: #3282F7;
+}
+
+#devices-filter {
+    background-color: #68D9A4;
+}
+
+#ustensils-filter {
+    background-color: #ED6454;
+}
+
+.input_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+
+}
+
+.input_container p {
+    color: #FFF;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.input_container input {
+    display: none;
+}
+
+#ingredients-arrow-down,
+#devices-arrow-down,
+#ustensils-arrow-down {
+    cursor: pointer;
+}
+
+#ingredients-arrow-up,
+#devices-arrow-up,
+#ustensils-arrow-up {
+    display: none;
+    cursor: pointer;
+}
+
+
+.ingredients_filter_list,
+.devices_filter_list,
+.ustensils_filter_list {
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 1em;
+    display: none;
+    padding-top: 2em;
+}
+
+.ingredients_filter_list p,
+.devices_filter_list p,
+.ustensils_filter_list p {
+    cursor: pointer;
+    color: #FFF;
+    font-family: 'Lato';
+    font-size: 18px
+}
+
+/* Recipes section */
 
 .recipes_section {
     display: grid;
