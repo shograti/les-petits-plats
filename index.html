@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Les petits plats</title>
-  </head>
-  <body>
-    <header>
-      <section class="title_section">
-        <img src="./assets/logo.png" alt="" />
-        <h1>Les petits plats</h1>
-      </section>
-      
-      <section class="search_section">
-        <input
-          type="text"
-          placeholder="Rechercher une recette"
-          id="search-bar"
-        />
-        <img src="./assets/glass.png" alt="" />
-      </section>
-    </header>
-    <main>
-      <section id="filters">
-        <div class="chosen_filters" id="chosen-filters"></div>
-        <div class="filter_menus">
-          <div id="ingredients-filter">
-            <div class="input_container">
-              <input type="text">
-              <p>Ingrédients</p>
-              <img src="./assets/arrow-down.png" id="ingredients-arrow-down" alt="">
-              <img src="./assets/arrow-up.png" id="ingredients-arrow-up" alt="">
-            </div>
-          </div>
-          <div id="devices-filter">
-            <div class="input_container">
-              <input type="text">
-              <p>Appareils</p>
-              <img src="./assets/arrow-down.png" id="devices-arrow-down" alt="">
-              <img src="./assets/arrow-up.png" id="devices-arrow-up" alt="">
-            </div>
-          </div>
-          <div id="ustensils-filter">
-            <div class="input_container">
-              <input type="text">
-              <p>Ustensiles</p>
-              <img src="./assets/arrow-down.png" id="ustensils-arrow-down" alt="">
-              <img src="./assets/arrow-up.png" id="ustensils-arrow-up" alt="">
-            </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Les petits plats</title>
+</head>
+
+<body>
+  <header>
+    <section class="title_section">
+      <img src="./assets/logo.png" alt="" />
+      <h1>Les petits plats</h1>
+    </section>
+
+    <section class="search_section">
+      <input type="text" placeholder="Rechercher une recette" id="search-bar" />
+      <img src="./assets/glass.png" alt="" />
+    </section>
+  </header>
+  <main>
+    <section id="filters">
+      <div class="chosen_filters" id="chosen-filters"></div>
+      <div class="filter_menus">
+        <div id="ingredients-filter">
+          <div class="input_container">
+            <input type="text">
+            <p>Ingrédients</p>
+            <img src="./assets/arrow-down.png" id="ingredients-arrow-down" alt="">
+            <img src="./assets/arrow-up.png" id="ingredients-arrow-up" alt="">
           </div>
         </div>
-      </section>
-      <section class="recipes_section" id="recipes-list"></section>
-    </main>
-    <script src="./data/data.js"></script>
-    <script src="./scripts/app.js"></script>
-  </body>
+        <div id="devices-filter">
+          <div class="input_container">
+            <input type="text">
+            <p>Appareils</p>
+            <img src="./assets/arrow-down.png" id="devices-arrow-down" alt="">
+            <img src="./assets/arrow-up.png" id="devices-arrow-up" alt="">
+          </div>
+        </div>
+        <div id="ustensils-filter">
+          <div class="input_container">
+            <input type="text">
+            <p>Ustensiles</p>
+            <img src="./assets/arrow-down.png" id="ustensils-arrow-down" alt="">
+            <img src="./assets/arrow-up.png" id="ustensils-arrow-up" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="recipes_section" id="recipes-list"></section>
+  </main>
+  <script src="./src/data/data.js"></script>
+  <script src="./src/utils/index.js"></script>
+  <script src="./src/components/recipes.js"></script>
+  <script src="./src/index.js"></script>
+  <script src="./src/components/searchbar.js"></script>
+  <script src="./src/components/filters.js"></script>
+
+</body>
+
 </html>
