@@ -42,6 +42,62 @@ ingredientsFilterList.classList.add('ingredients_filter_list');
 devicesFilterList.classList.add('devices_filter_list');
 ustensilsFilterList.classList.add('ustensils_filter_list');
 
+ingredientsFilterInput.addEventListener('keyup', (e) => {
+  removeChildren(ingredientsFilterList);
+  if (e.target.value.length === 0) {
+    generateLists();
+  }
+  const ingredients = generateIngredientsList();
+
+  const filteredIngredients = ingredients.filter((ingredient) =>
+    ingredient.includes(e.target.value)
+  );
+
+  const ingredientsToDisplay = createFilterList(
+    ingredientsFilterList,
+    filteredIngredients
+  );
+  ingredientsFilter.appendChild(ingredientsToDisplay);
+});
+
+devicesFilterInput.addEventListener('keyup', (e) => {
+  removeChildren(devicesFilterList);
+  if (e.target.value.length === 0) {
+    generateLists();
+  }
+  const devices = generateAppliancesList();
+  console.log(devices);
+
+  const filteredDevices = devices.filter((devices) =>
+    devices.includes(e.target.value)
+  );
+
+  const devicessToDisplay = createFilterList(
+    devicesFilterList,
+    filteredDevices
+  );
+  devicesFilter.appendChild(devicessToDisplay);
+});
+
+ustensilsFilterInput.addEventListener('keyup', (e) => {
+  removeChildren(ustensilsFilterList);
+  if (e.target.value.length === 0) {
+    generateLists();
+  }
+
+  const ustensils = generateUstensilsList();
+
+  const filteredUstensils = [...ustensils].filter((ustensil) =>
+    ustensil.includes(e.target.value)
+  );
+
+  const ustensilsToDisplay = createFilterList(
+    ustensilsFilterList,
+    filteredUstensils
+  );
+  ustensilsFilter.appendChild(ustensilsToDisplay);
+});
+
 const filtersToListen = [
   {
     dropDownArrow: ingredientsDropdownArrow,
