@@ -82,6 +82,10 @@ header {
     transform: translateY(-50%);
 }
 
+main {
+    position: relative;
+}
+
 /* Filter section */
 
 .filters {
@@ -133,7 +137,7 @@ header {
 #ustensils-filter {
     border-radius: 5px;
     padding: 1em;
-    position: relative;
+
 
 }
 
@@ -166,6 +170,16 @@ header {
 
 .input_container input {
     display: none;
+    background-color: inherit;
+    border: none;
+    font-size: 18px;
+    color: #FFF;
+    outline: none;
+    width: 100%;
+}
+
+.input_container input::placeholder {
+    opacity: 0.7
 }
 
 #ingredients-arrow-down,
@@ -203,6 +217,7 @@ header {
 /* Recipes section */
 
 .recipes_section {
+    position: absolute;
     display: grid;
     justify-items: center;
     grid-template-columns: 1fr 1fr 1fr;

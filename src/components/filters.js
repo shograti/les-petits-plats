@@ -1,7 +1,25 @@
 const filters = [];
-const recipesToDisplay = [];
+let recipesToDisplay = [];
+
+const filterConditions = {
+  ingredients: [],
+  devices: [],
+  ustensils: [],
+};
 
 const chosenFilters = document.getElementById('chosen-filters');
+
+const ingredientsFilterTitle = document.getElementById(
+  'ingredients-filter-title'
+);
+const devicesFilterTitle = document.getElementById('devices-filter-title');
+const ustensilsFilterTitle = document.getElementById('ustensils-filter-title');
+
+const ingredientsFilterInput = document.getElementById(
+  'ingredients-filter-input'
+);
+const devicesFilterInput = document.getElementById('devices-filter-input');
+const ustensilsFilterInput = document.getElementById('ustensils-filter-input');
 
 const ingredientsDropdownArrow = document.getElementById(
   'ingredients-arrow-down'
@@ -29,16 +47,22 @@ const filtersToListen = [
     dropDownArrow: ingredientsDropdownArrow,
     dropUpArrow: ingredientsDropupArrow,
     list: ingredientsFilterList,
+    input: ingredientsFilterInput,
+    title: ingredientsFilterTitle,
   },
   {
     dropDownArrow: devicesDropdownArrow,
     dropUpArrow: devicesDropupArrow,
     list: devicesFilterList,
+    input: devicesFilterInput,
+    title: devicesFilterTitle,
   },
   {
     dropDownArrow: ustensilsDropdownArrow,
     dropUpArrow: ustensilsDropupArrow,
     list: ustensilsFilterList,
+    input: ustensilsFilterInput,
+    title: ustensilsFilterTitle,
   },
 ];
 
@@ -46,29 +70,37 @@ filtersToListen.forEach((filterToListen) => {
   displayFiltersListener(
     filterToListen.dropDownArrow,
     filterToListen.dropUpArrow,
-    filterToListen.list
+    filterToListen.list,
+    filterToListen.input,
+    filterToListen.title
   );
 
   hideFiltersListener(
     filterToListen.dropDownArrow,
     filterToListen.dropUpArrow,
-    filterToListen.list
+    filterToListen.list,
+    filterToListen.input,
+    filterToListen.title
   );
 });
 
-function displayFiltersListener(arrowDown, arrowUp, list) {
+function displayFiltersListener(arrowDown, arrowUp, list, input, title) {
   arrowDown.addEventListener('click', () => {
     list.style.display = 'grid';
     arrowDown.style.display = 'none';
     arrowUp.style.display = 'block';
+    title.style.display = 'none';
+    input.style.display = 'block';
   });
 }
 
-function hideFiltersListener(arrowDown, arrowUp, list) {
+function hideFiltersListener(arrowDown, arrowUp, list, input, title) {
   arrowUp.addEventListener('click', () => {
     list.style.display = 'none';
     arrowDown.style.display = 'block';
     arrowUp.style.display = 'none';
+    title.style.display = 'block';
+    input.style.display = 'none';
   });
 }
 
@@ -83,12 +115,32 @@ function generateIngredientsList() {
     ingredient.toLowerCase()
   );
   const ingredients = new Set(ingredientsToLowerCase);
+  if (filterConditions.ingredients) {
+    const ingredientsArray = [...ingredients];
+    const filteredIngredients = [];
+    ingredientsArray.forEach((ingredient) => {
+      if (!filterConditions.ingredients.includes(ingredient)) {
+        filteredIngredients.push(ingredient);
+      }
+    });
+    return filteredIngredients;
+  }
   return ingredients;
 }
 
 function generateAppliancesList() {
   const appliances = new Set();
   recipes.map((recipe) => appliances.add(recipe.appliance));
+  if (filterConditions.devices) {
+    const devicesArray = [...appliances];
+    const filteredDevices = [];
+    devicesArray.forEach((device) => {
+      if (!filterConditions.devices.includes(device)) {
+        filteredDevices.push(device);
+      }
+    });
+    return filteredDevices;
+  }
   return appliances;
 }
 
@@ -112,33 +164,33 @@ function createFilterList(target, list) {
     target.appendChild(itemName);
 
     itemName.addEventListener('click', () => {
+      recipesToDisplay = [];
       if (target.className === 'ingredients_filter_list') {
-        filters.push({ name: itemName.textContent, color: 'blue' });
+        filters.push({
+          name: itemName.textContent,
+          color: 'blue',
+          type: 'ingredient',
+        });
+        filterConditions.ingredients.push(itemName.textContent);
       }
       if (target.className === 'devices_filter_list') {
-        filters.push({ name: itemName.textContent, color: 'green' });
+        filters.push({
+          name: itemName.textContent,
+          color: 'green',
+          type: 'device',
+        });
+        filterConditions.devices.push(itemName.textContent.toLowerCase());
       }
       if (target.className === 'ustensils_filter_list') {
-        filters.push({ name: itemName.textContent, color: 'red' });
+        filters.push({
+          name: itemName.textContent,
+          color: 'red',
+          type: 'ustensil',
+        });
+        filterConditions.ustensils.push(itemName.textContent.toLowerCase());
       }
 
-      recipes.map((recipe) => {
-        recipe.ingredients.forEach((ingredient) => {
-          if (ingredient.ingredient === itemName.textContent) {
-            recipesToDisplay.push(recipe);
-          }
-        });
-
-        recipe.ustensils.forEach((ustensil) => {
-          if (ustensil === itemName.textContent.toLowerCase()) {
-            recipesToDisplay.push(recipe);
-          }
-        });
-
-        if (recipe.appliance === itemName.textContent) {
-          recipesToDisplay.push(recipe);
-        }
-      });
+      showFilteredRecipes();
 
       itemName.remove();
       displayFilters(filters);
@@ -148,12 +200,76 @@ function createFilterList(target, list) {
   return target;
 }
 
+function showFilteredRecipes() {
+  recipes.map((recipe) => {
+    let recipeIngredients = [];
+    let recipeUstensils = [];
+    let recipeDevices = [];
+
+    recipe.ingredients.forEach((ingredient) => {
+      recipeIngredients.push(ingredient.ingredient);
+    });
+
+    recipeDevices.push(recipe.appliance.toLowerCase());
+
+    recipe.ustensils.forEach((ustensil) => {
+      recipeUstensils.push(ustensil.toLowerCase());
+    });
+
+    if (
+      includesAll(filterConditions.ingredients, recipeIngredients) &&
+      includesAll(filterConditions.ustensils, recipeUstensils) &&
+      includesAll(filterConditions.devices, recipeDevices)
+    ) {
+      recipesToDisplay.push(recipe);
+    }
+  });
+}
+
 function displayFilters(filters) {
   removeChildren(chosenFilters);
   filters.forEach((filter) => {
     const chosenFilter = document.createElement('div');
     const chosenFilterTextContainer = document.createElement('p');
     const removeIcon = document.createElement('img');
+    removeIcon.addEventListener('click', () => {
+      if (filter.type === 'ingredient') {
+        const index = filterConditions.ingredients.indexOf(
+          chosenFilter.textContent
+        );
+        if (index > -1) {
+          filterConditions.ingredients.splice(index, 1);
+        }
+      }
+
+      if (filter.type === 'ustensil') {
+        const index = filterConditions.ustensils.indexOf(
+          chosenFilter.textContent
+        );
+        if (index > -1) {
+          filterConditions.ustensils.splice(index, 1);
+        }
+      }
+
+      if (filter.type === 'device') {
+        const index = filterConditions.devices.indexOf(
+          chosenFilter.textContent.toLowerCase()
+        );
+        if (index > -1) {
+          filterConditions.devices.splice(index, 1);
+        }
+      }
+
+      filters.forEach((filter, index) => {
+        if (filter.name === chosenFilter.textContent) {
+          filters.splice(index, 1);
+        }
+      });
+      chosenFilter.remove();
+      showFilteredRecipes();
+      displayRecipes(recipesToDisplay, recipesList);
+      generateLists();
+    });
     removeIcon.setAttribute('src', './assets/remove.png');
     chosenFilter.classList.add(`filter_${filter.color}`);
     chosenFilterTextContainer.textContent = filter.name;
@@ -164,6 +280,9 @@ function displayFilters(filters) {
 }
 
 function generateLists() {
+  removeChildren(ingredientsFilterList);
+  removeChildren(devicesFilterList);
+  removeChildren(ustensilsFilterList);
   const ingredients = generateIngredientsList();
   const ingredientsToDisplay = createFilterList(
     ingredientsFilterList,
